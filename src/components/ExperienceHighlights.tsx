@@ -1,7 +1,8 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { experienceCards } from '../data/content'
 
-const icons = [
+/* Fallback icons — shown only when no photo is provided */
+const fallbackIcons = [
   // Gourmet Dinner
   <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="20" r="10" stroke="#C9A84C" strokeWidth="1.5" /><path d="M18 10V6" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" /><path d="M14 10C14 8 16 6 18 6C20 6 22 8 22 10" stroke="#C9A84C" strokeWidth="1.5" /><line x1="8" y1="20" x2="28" y2="20" stroke="#C9A84C" strokeWidth="1.5" /></svg>,
   // Luxury Travel
@@ -31,19 +32,42 @@ export default function ExperienceHighlights() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-children">
           {experienceCards.map((card, i) => (
-            <div
-              key={card.title}
-              className="bg-white p-8 md:p-10 group hover:shadow-md transition-all duration-500"
-            >
-              <div className="mb-6 opacity-60 group-hover:opacity-100 transition-opacity">
-                {icons[i]}
-              </div>
-              <h3 className="font-heading text-xl md:text-2xl font-semibold text-charcoal mb-3">
-                {card.title}
-              </h3>
-              <p className="font-body text-sm text-charcoal/60 leading-relaxed">
-                {card.description}
-              </p>
+            <div key={card.title}>
+              {card.image ? (
+                /* ── Photo Card Mode ── */
+                <div className="group relative overflow-hidden bg-charcoal">
+                  {/* Photo — fills top portion */}
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  {/* Text overlay at bottom */}
+                  <div className="p-6 md:p-8 bg-white">
+                    <h3 className="font-heading text-xl md:text-2xl font-semibold text-charcoal mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="font-body text-sm text-charcoal/60 leading-relaxed">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                /* ── Icon Card Fallback ── */
+                <div className="bg-white p-8 md:p-10 group hover:shadow-md transition-all duration-500">
+                  <div className="mb-6 opacity-60 group-hover:opacity-100 transition-opacity">
+                    {fallbackIcons[i]}
+                  </div>
+                  <h3 className="font-heading text-xl md:text-2xl font-semibold text-charcoal mb-3">
+                    {card.title}
+                  </h3>
+                  <p className="font-body text-sm text-charcoal/60 leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>

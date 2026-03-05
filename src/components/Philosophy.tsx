@@ -1,5 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { philosophyCards } from '../data/content'
+import { philosophyCards, philosophyBgImage } from '../data/content'
 
 const cardIcons = [
   // Strength - shield
@@ -20,8 +20,21 @@ export default function Philosophy() {
   const ref = useScrollReveal()
 
   return (
-    <section ref={ref} className="reveal-section py-24 md:py-32 px-6 bg-charcoal text-white">
-      <div className="max-w-6xl mx-auto">
+    <section ref={ref} className="reveal-section relative py-24 md:py-32 px-6 bg-charcoal text-white overflow-hidden">
+      {/* Background photo with dark overlay */}
+      {philosophyBgImage && (
+        <>
+          <img
+            src={philosophyBgImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* 85% opacity charcoal overlay — photo bleeds through subtly */}
+          <div className="absolute inset-0 bg-charcoal/85" />
+        </>
+      )}
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-sm uppercase tracking-[0.3em] text-gold mb-4 font-body">Be Bold. Be Brave.</p>
           <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-white leading-tight mb-6">
@@ -38,7 +51,7 @@ export default function Philosophy() {
           {philosophyCards.map((card, i) => (
             <div
               key={card.title}
-              className="bg-white/5 border border-white/10 p-8 md:p-10 group hover:bg-white/10 hover:border-gold/30 transition-all duration-500"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 group hover:bg-white/10 hover:border-gold/30 transition-all duration-500"
             >
               <div className="mb-5 opacity-60 group-hover:opacity-100 transition-opacity">
                 {cardIcons[i]}

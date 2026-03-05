@@ -1,5 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { CHECKOUT_URL } from '../data/content'
+import { CHECKOUT_URL, ctaBgImage } from '../data/content'
 
 export default function FinalCTA() {
   const ref = useScrollReveal()
@@ -7,8 +7,20 @@ export default function FinalCTA() {
   return (
     <section
       ref={ref}
-      className="reveal-section py-24 md:py-32 px-6 bg-gradient-to-br from-cream via-blush-light/30 to-gold/20 relative overflow-hidden"
+      className="reveal-section relative py-24 md:py-32 px-6 overflow-hidden bg-linear-to-br from-cream via-blush-light/30 to-gold/20"
     >
+      {/* Background photo with warm cream overlay */}
+      {ctaBgImage && (
+        <>
+          <img
+            src={ctaBgImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-linear-to-br from-cream/85 via-blush-light/75 to-gold/65" />
+        </>
+      )}
+
       {/* Subtle decorative orbs */}
       <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-gold/10 rounded-full filter blur-[80px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[10%] w-80 h-80 bg-blush/15 rounded-full filter blur-[80px] pointer-events-none" />

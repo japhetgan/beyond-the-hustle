@@ -32,15 +32,29 @@ export default function CaseStudies() {
                 <p className="font-body text-charcoal/70 leading-relaxed mb-6">
                   {study.quote}
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold/30 to-blush/30 flex items-center justify-center">
-                    <span className="font-heading text-sm font-semibold text-charcoal/60">
-                      {study.name[0]}
+                <div className="flex items-center gap-4">
+                  {/* Avatar — real photo or gradient fallback */}
+                  {study.image ? (
+                    <img
+                      src={study.image}
+                      alt={study.name}
+                      className="w-14 h-14 rounded-full object-cover ring-2 ring-gold/20"
+                    />
+                  ) : (
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/30 to-blush/30 flex items-center justify-center ring-2 ring-gold/20">
+                      <span className="font-heading text-lg font-semibold text-charcoal/50">
+                        {study.name[0]}
+                      </span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="block font-body text-sm font-medium uppercase tracking-widest text-charcoal/70">
+                      {study.name}
+                    </span>
+                    <span className="block font-body text-xs text-gold/80 mt-0.5">
+                      BTH Alumni
                     </span>
                   </div>
-                  <span className="font-body text-sm uppercase tracking-widest text-charcoal/50">
-                    {study.name}
-                  </span>
                 </div>
               </div>
             </div>
